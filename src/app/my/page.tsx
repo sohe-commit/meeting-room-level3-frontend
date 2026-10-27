@@ -15,7 +15,7 @@ const TYPE_TABS: (MeetingType | "")[] = ["", "MEETING", "TRAINING"];
 
 const chip = (selected: boolean) =>
   `shrink-0 rounded-full px-3 py-1.5 text-sm ${
-    selected ? "bg-foreground font-semibold text-white" : "bg-surface text-muted ring-1 ring-line hover:text-foreground"
+    selected ? "bg-brand font-semibold text-white" : "bg-surface text-muted ring-1 ring-line hover:text-foreground"
   }`;
 
 export default function MyReservationsPage() {
@@ -110,7 +110,7 @@ export default function MyReservationsPage() {
                 key={t || "ALL"}
                 onClick={() => setStatus(t)}
                 className={`shrink-0 rounded-lg px-3 py-1 text-sm ${
-                  status === t ? "bg-surface font-medium text-foreground ring-1 ring-line" : "text-muted hover:text-foreground"
+                  status === t ? "bg-brand-soft font-medium text-brand" : "text-muted hover:text-foreground"
                 }`}
               >
                 {t ? STATUS_LABEL[t] : "전체 상태"}

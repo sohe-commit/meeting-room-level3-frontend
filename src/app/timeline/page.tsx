@@ -23,16 +23,19 @@ export default function TimelinePage() {
       />
       <div className="mb-3 flex flex-wrap gap-3 text-xs text-muted">
         <span className="flex items-center gap-1">
-          <i className="inline-block h-3 w-3 rounded bg-foreground" /> 내 예약
+          <i className="inline-block h-3 w-3 rounded bg-brand" /> 내 예약
         </span>
         <span className="flex items-center gap-1">
-          <i className="inline-block h-3 w-3 rounded bg-[#eef0ff] ring-1 ring-[#d4d8ff]" /> 다른 사람 예약
+          <i className="inline-block h-3 w-3 rounded bg-brand-soft ring-1 ring-[#d3e0fd]" /> 다른 사람 예약
+        </span>
+        <span className="flex items-center gap-1">
+          <i className="inline-block h-3 w-3 rounded bg-butter ring-1 ring-[#f3dd8a]" /> 교육·행사
         </span>
         <span className="flex items-center gap-1">
           <i className="inline-block h-3 w-3 rounded bg-surface-2 ring-1 ring-line" /> 끝난 회의
         </span>
         <span className="flex items-center gap-1">
-          <i className="inline-block h-3 w-3 rounded bg-[#faf8f5] ring-1 ring-line" /> 예약할 수 없는 시간
+          <i className="inline-block h-3 w-3 rounded bg-[#f7f9fc] ring-1 ring-line" /> 예약할 수 없는 시간
         </span>
       </div>
       <ErrorBox message={error} />

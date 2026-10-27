@@ -74,7 +74,7 @@ export function WeekBoard({
           return (
             <section
               key={d}
-              className={`flex min-h-32 flex-col rounded-xl border bg-surface ${isToday ? "border-foreground" : "border-line"}`}
+              className={`flex min-h-32 flex-col rounded-xl border bg-surface ${isToday ? "border-brand" : "border-line"}`}
             >
               <header className="flex items-center justify-between border-b border-line-soft px-3 py-2">
                 <span className="flex items-center gap-1.5 text-sm font-semibold">
@@ -82,7 +82,7 @@ export function WeekBoard({
                   <span className="font-normal text-muted">{shortDay(d)}</span>
                 </span>
                 {isToday ? (
-                  <span className="rounded-full bg-foreground px-2 py-0.5 text-[11px] font-medium text-white">오늘</span>
+                  <span className="rounded-full bg-brand px-2 py-0.5 text-[11px] font-medium text-white">오늘</span>
                 ) : (
                   items.length > 0 && <span className="text-xs text-muted">{items.length}건</span>
                 )}
@@ -95,7 +95,7 @@ export function WeekBoard({
                     <Link
                       key={r.id}
                       href={`/reservations/${r.id}`}
-                      className={`block rounded-lg border px-2.5 py-2 text-sm transition hover:border-foreground ${
+                      className={`block rounded-lg border px-2.5 py-2 text-sm transition hover:border-brand ${
                         r.status === "DONE" ? "border-line-soft bg-background text-muted" : "border-line bg-surface"
                       }`}
                     >
@@ -108,7 +108,7 @@ export function WeekBoard({
                       <p className="mt-0.5 truncate">{r.title}</p>
                       <div className="mt-1 flex flex-wrap items-center gap-1 text-xs text-muted">
                         <span>{r.roomName}</span>
-                        {r.meetingType === "TRAINING" && <Tag tone="amber">{MEETING_TYPE_LABEL.TRAINING}</Tag>}
+                        {r.meetingType === "TRAINING" && <Tag tone="butter">{MEETING_TYPE_LABEL.TRAINING}</Tag>}
                         {r.createdVia === "AI" && <Tag tone="ai">AI</Tag>}
                       </div>
                     </Link>

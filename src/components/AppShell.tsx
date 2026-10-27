@@ -61,14 +61,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const linkClass = (href: string | null) =>
     `flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
       href && isActive(pathname, href)
-        ? "bg-surface text-foreground ring-1 ring-line"
+        ? "bg-brand-soft text-brand"
         : "text-muted hover:text-foreground"
     }`;
 
   return (
     <ChatProvider>
       <div className="flex min-h-screen flex-col">
-        <header className="sticky top-0 z-20 border-b border-line bg-background/95 backdrop-blur">
+        <header className="sticky top-0 z-20 border-b border-line bg-surface/95 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4">
             <Link href="/rooms" className="shrink-0 text-base font-semibold tracking-tight text-foreground">
               🗓️ 회의실 예약
@@ -87,7 +87,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </span>
               <span
                 className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                  user.role === "ADMIN" ? "bg-foreground text-white" : "bg-surface-2 text-muted"
+                  user.role === "ADMIN" ? "bg-brand text-white" : "bg-surface-2 text-muted"
                 }`}
               >
                 {user.role === "ADMIN" ? "관리자" : "직원"}

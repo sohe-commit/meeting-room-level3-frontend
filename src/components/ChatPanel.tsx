@@ -20,7 +20,7 @@ const NEED_LABEL = { tv: "TV", videoConf: "화상회의", whiteboard: "화이트
 export function AiMark({ size = 28 }: { size?: number }) {
   return (
     <span
-      className="inline-flex shrink-0 items-center justify-center rounded-full bg-ai text-white"
+      className="inline-flex shrink-0 items-center justify-center rounded-full bg-ai text-foreground"
       style={{ width: size, height: size }}
       aria-hidden
     >
@@ -92,7 +92,7 @@ function AssistantMessage({ m, onNavigate }: { m: ChatMessage; onNavigate: () =>
                   <Link
                     href={`/reservations/${b.id}`}
                     onClick={onNavigate}
-                    className="shrink-0 text-xs font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-foreground"
+                    className="shrink-0 text-xs font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-brand"
                   >
                     상세
                   </Link>
@@ -140,7 +140,7 @@ function AssistantMessage({ m, onNavigate }: { m: ChatMessage; onNavigate: () =>
                   type="button"
                   disabled={busy}
                   onClick={() => send(`${formatDate(s.date)} ${s.startTime}~${s.endTime}으로 해 줘`)}
-                  className="rounded-lg border border-line bg-surface px-2.5 py-1 text-xs font-medium hover:border-foreground disabled:opacity-50"
+                  className="rounded-lg border border-line bg-surface px-2.5 py-1 text-xs font-medium hover:border-brand disabled:opacity-50"
                 >
                   {s.startTime}~{s.endTime} · {s.roomName}
                 </button>
@@ -238,7 +238,7 @@ export function ChatPanel({ onClose, onNavigate }: { onClose?: () => void; onNav
                 key={ex}
                 type="button"
                 onClick={() => submit(ex)}
-                className="rounded-lg border border-line bg-surface px-3 py-1.5 text-left text-xs text-foreground hover:border-foreground"
+                className="rounded-lg border border-line bg-surface px-3 py-1.5 text-left text-xs text-foreground hover:border-brand"
               >
                 {ex}
               </button>
@@ -249,7 +249,7 @@ export function ChatPanel({ onClose, onNavigate }: { onClose?: () => void; onNav
         {messages.map((m) =>
           m.role === "user" ? (
             <div key={m.id} className="flex justify-end">
-              <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-md bg-foreground px-3.5 py-2.5 text-sm leading-relaxed text-white">
+              <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-md bg-brand px-3.5 py-2.5 text-sm leading-relaxed text-white">
                 {m.text}
               </div>
             </div>
@@ -281,7 +281,7 @@ export function ChatPanel({ onClose, onNavigate }: { onClose?: () => void; onNav
           submit();
         }}
       >
-        <div className="flex items-end gap-2 rounded-xl border border-line bg-surface p-1.5 pl-3 focus-within:border-foreground">
+        <div className="flex items-end gap-2 rounded-xl border border-line bg-surface p-1.5 pl-3 focus-within:border-brand">
           <textarea
             ref={inputRef}
             rows={1}
@@ -302,7 +302,7 @@ export function ChatPanel({ onClose, onNavigate }: { onClose?: () => void; onNav
             type="submit"
             disabled={busy || text.trim().length < 2}
             aria-label="보내기"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ai text-white transition hover:bg-[#e64d00] disabled:bg-[#ffcfb8]"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ai text-foreground transition hover:bg-ai-hover disabled:bg-ai-soft disabled:text-subtle"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
               <path d="M5 12h14M13 6l6 6-6 6" />

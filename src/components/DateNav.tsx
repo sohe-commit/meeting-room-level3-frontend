@@ -13,7 +13,7 @@ export function DateNav({ date, onChange }: { date: string; onChange: (date: str
       </button>
       <input
         type="date"
-        className="rounded-lg border border-line bg-surface px-3 py-2 text-sm outline-none focus:border-foreground focus:ring-2 focus:ring-foreground/10"
+        className="rounded-lg border border-line bg-surface px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
         value={date}
         onChange={(e) => e.target.value && onChange(e.target.value)}
       />

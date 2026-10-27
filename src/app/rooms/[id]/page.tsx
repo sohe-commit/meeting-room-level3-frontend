@@ -176,7 +176,7 @@ function IssueForm({ room, onDone, onCancel }: { room: Room; onDone: () => void;
                   if (c !== "BROKEN") setEquipment("");
                 }}
                 className={`rounded-full border px-3 py-1.5 text-sm ${
-                  category === c ? "border-foreground bg-foreground font-medium text-white" : "border-line bg-white"
+                  category === c ? "border-brand bg-brand font-medium text-white" : "border-line bg-white"
                 }`}
               >
                 {CATEGORY_LABEL[c]}
@@ -195,7 +195,7 @@ function IssueForm({ room, onDone, onCancel }: { room: Room; onDone: () => void;
                   aria-pressed={equipment === eq}
                   onClick={() => setEquipment(eq)}
                   className={`rounded-full border px-3 py-1.5 text-sm ${
-                    equipment === eq ? "border-foreground bg-foreground font-medium text-white" : "border-line bg-white"
+                    equipment === eq ? "border-brand bg-brand font-medium text-white" : "border-line bg-white"
                   }`}
                 >
                   {EQUIPMENT_LABEL[eq]}

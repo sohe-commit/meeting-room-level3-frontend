@@ -36,7 +36,7 @@ export function ChatWidget() {
         onClick={() => setOpen(!open)}
         aria-label={open ? "AI 예약 도우미 닫기" : "AI 예약 도우미 열기"}
         title="AI 예약 도우미"
-        className={`fixed right-5 bottom-5 z-40 h-14 w-14 items-center justify-center rounded-full bg-ai text-white shadow-[0_6px_20px_rgba(255,86,0,0.35)] transition hover:scale-105 hover:bg-[#e64d00] ${
+        className={`fixed right-5 bottom-5 z-40 h-14 w-14 items-center justify-center rounded-full bg-ai text-foreground shadow-[0_6px_20px_rgba(241,185,76,0.45)] transition hover:scale-105 hover:bg-ai-hover ${
           open ? "hidden sm:flex" : "flex"
         }`}
       >
@@ -49,7 +49,7 @@ export function ChatWidget() {
             <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
               <path d="M12 3C6.98 3 3 6.58 3 11c0 2.13.93 4.06 2.45 5.5L4.5 21l4.36-2.18c.98.27 2.03.43 3.14.43 5.02 0 9-3.58 9-8.25S17.02 3 12 3z" />
             </svg>
-            {busy && <span className="absolute top-1 right-1 h-3 w-3 animate-pulse rounded-full border-2 border-white bg-foreground" />}
+            {busy && <span className="absolute top-1 right-1 h-3 w-3 animate-pulse rounded-full border-2 border-white bg-brand" />}
           </>
         )}
       </button>

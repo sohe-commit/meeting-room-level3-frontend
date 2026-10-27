@@ -48,8 +48,9 @@ npm run dev                  # http://localhost:3100
 
 ## 디자인
 
-화면 디자인은 [`DESIGN.md`](DESIGN.md)를 기준으로 해요. ([VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)의 Intercom 분석 문서, MIT)
+화면 디자인은 [`DESIGN.md`](DESIGN.md)를 기준으로 해요. ([VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)의 Intercom 분석 문서를 구조 기준으로 쓰고, 색만 바꿨어요. MIT)
 
-- 크림색 바탕 + 흰 카드 + 검정 글씨·버튼, 그림자 대신 얇은 테두리
-- 주황색은 **AI 예약에만** 써요 (챗봇 버튼, AI 배지)
+- 색은 시안 A "블루 + 버터": 연한 블루그레이 바탕, 오프화이트 카드, 네이비 글씨, 클린 블루(#3182F6) 버튼·내 예약
+- 교육·행사는 버터 옐로, 그림자 대신 얇은 테두리
+- 파스텔 오렌지(#F1B94C)는 **AI 예약에만** 써요 (챗봇 버튼, AI 배지)
 - 글꼴은 Pretendard

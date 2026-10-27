@@ -34,7 +34,7 @@ export default function ReservationDetailPage() {
 
   const canCancel = r.isMine && (r.status === "UPCOMING" || r.status === "ONGOING");
   const rows: [string, React.ReactNode][] = [
-    ["회의실", <Link key="room" href={`/rooms/${r.roomId}`} className="font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-foreground">{r.roomName} ({r.roomFloor}층)</Link>],
+    ["회의실", <Link key="room" href={`/rooms/${r.roomId}`} className="font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-brand">{r.roomName} ({r.roomFloor}층)</Link>],
     ["날짜", formatDate(r.date)],
     ["시간", `${r.startTime} ~ ${r.endTime}`],
     ["회의 유형", MEETING_TYPE_LABEL[r.meetingType]],
@@ -83,7 +83,7 @@ export default function ReservationDetailPage() {
             <dd>{r.reserver.name}</dd>
             <dt className="text-muted">연락처</dt>
             <dd>
-              <a href={`tel:${r.reserver.phone}`} className="font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-foreground">
+              <a href={`tel:${r.reserver.phone}`} className="font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-brand">
                 {r.reserver.phone}
               </a>
             </dd>

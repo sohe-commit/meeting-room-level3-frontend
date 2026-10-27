@@ -1,20 +1,26 @@
 @import "tailwindcss";
 
-/* 디자인 기준: DESIGN.md (크림색 바탕 + 검정 글씨·버튼, 주황은 AI에만) */
+/* 디자인 기준: DESIGN.md (구조는 Intercom 분석 문서, 색은 시안 A "블루 + 버터") */
 :root {
   color-scheme: light;
-  --background: #f5f1ec; /* canvas */
-  --surface: #ffffff; /* surface-1 */
-  --surface-2: #ebe7e1;
-  --foreground: #111111; /* ink */
-  --muted: #626260; /* ink-muted */
-  --subtle: #7b7b78; /* ink-subtle */
-  --line: #d3cec6; /* hairline */
-  --line-soft: #ebe7e1; /* hairline-soft */
-  --brand: #111111; /* 주요 버튼·링크는 검정 */
-  --brand-soft: #ebe7e1;
-  --ai: #ff5600; /* AI 예약 전용 포인트 색 */
-  --ai-soft: #fff1ea;
+  --background: #f5f7fb; /* 아주 연한 블루그레이 바탕 */
+  --surface: #fcfdff; /* 카드·입력칸 (오프화이트) */
+  --surface-2: #eef2f8;
+  --foreground: #0a1680; /* 글씨: 오션 네이비 */
+  --muted: #5b6585;
+  --subtle: #7c849e;
+  --line: #e3e8f0;
+  --line-soft: #eef2f8;
+  --brand: #3182f6; /* 주요 버튼·내 예약: 클린 블루 */
+  --brand-hover: #1b64da;
+  --brand-soft: #e8effe;
+  --brand-text: #1f3fa8; /* 연한 파랑 위 글씨 */
+  --butter: #fbedb0; /* 교육·행사 */
+  --butter-text: #6b5200;
+  --ai: #f1b94c; /* AI 예약 전용 (파스텔 오렌지), 위 글씨는 네이비 */
+  --ai-hover: #e5a935;
+  --ai-soft: #fef4de;
+  --ai-text: #8a5300;
 }
 
 @theme inline {
@@ -27,9 +33,15 @@
   --color-line: var(--line);
   --color-line-soft: var(--line-soft);
   --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
   --color-brand-soft: var(--brand-soft);
+  --color-brand-text: var(--brand-text);
+  --color-butter: var(--butter);
+  --color-butter-text: var(--butter-text);
   --color-ai: var(--ai);
+  --color-ai-hover: var(--ai-hover);
   --color-ai-soft: var(--ai-soft);
+  --color-ai-text: var(--ai-text);
   --font-sans: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic",
     system-ui, sans-serif;
 }

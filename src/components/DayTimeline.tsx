@@ -66,7 +66,7 @@ export function DayTimeline({
                 <span className="hidden text-xs font-medium text-foreground group-hover:inline">+ {time}</span>
               </Link>
             ) : (
-              <div key={`${room.id}-${time}`} className={`${base} bg-[#faf8f5]`} style={style} />
+              <div key={`${room.id}-${time}`} className={`${base} bg-[#f7f9fc]`} style={style} />
             );
           }),
         )}
@@ -78,17 +78,19 @@ export function DayTimeline({
               href={`/reservations/${r.id}`}
               className={`z-[5] m-0.5 overflow-hidden rounded-md px-2 py-1 text-xs leading-tight ring-1 ring-inset ${
                 r.isMine
-                  ? "bg-foreground text-white ring-foreground"
+                  ? "bg-brand text-white ring-brand"
                   : r.status === "DONE"
                     ? "bg-surface-2 text-muted ring-line"
-                    : "bg-[#eef0ff] text-[#1f2580] ring-[#d4d8ff]"
+                    : r.meetingType === "TRAINING"
+                      ? "bg-butter text-butter-text ring-[#f3dd8a]"
+                      : "bg-brand-soft text-brand-text ring-[#d3e0fd]"
               }`}
               style={{ gridColumn: i + 2, gridRow: `${row(r.startTime)} / ${row(r.endTime)}` }}
               title={`${r.startTime}~${r.endTime} ${r.departmentName ?? ""} ${r.title}`}
             >
               <div className="flex items-center gap-1 font-semibold">
                 {r.isMine && (
-                  <span className="shrink-0 rounded bg-white px-1 py-px text-[10px] font-semibold leading-tight text-foreground">
+                  <span className="shrink-0 rounded bg-white px-1 py-px text-[10px] font-semibold leading-tight text-brand">
                     내 예약
                   </span>
                 )}

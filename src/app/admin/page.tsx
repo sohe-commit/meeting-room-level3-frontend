@@ -52,7 +52,7 @@ export default function AdminDashboardPage() {
   const stats = [
     { label: "오늘 예약", value: d.today.total, href: listLink(), tone: "text-foreground" },
     { label: "진행 중", value: d.today.ongoing, href: listLink("ONGOING"), tone: "text-emerald-600" },
-    { label: "예정", value: d.today.upcoming, href: listLink("UPCOMING"), tone: "text-[#2b31a8]" },
+    { label: "예정", value: d.today.upcoming, href: listLink("UPCOMING"), tone: "text-brand-text" },
     { label: "완료", value: d.today.done, href: listLink("DONE"), tone: "text-subtle" },
   ];
 
@@ -63,7 +63,7 @@ export default function AdminDashboardPage() {
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
         {stats.map((s) => (
           <Link key={s.label} href={s.href}>
-            <Card className="transition hover:border-foreground">
+            <Card className="transition hover:border-brand">
               <p className="text-sm text-muted">{s.label}</p>
               <p className={`mt-1 text-3xl font-semibold ${s.tone}`}>
                 {s.value}
@@ -122,7 +122,7 @@ export default function AdminDashboardPage() {
             <h2 className="font-semibold">
               오늘 취소 <span className="text-rose-600">{d.cancelled.count}건</span>
             </h2>
-            <Link href="/admin/reservations?status=CANCELLED" className="text-sm font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-foreground">
+            <Link href="/admin/reservations?status=CANCELLED" className="text-sm font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-brand">
               전체 보기
             </Link>
           </div>
@@ -149,7 +149,7 @@ export default function AdminDashboardPage() {
             <h2 className="font-semibold">
               처리 안 된 시설 제보 <span className="text-rose-600">{d.issues.openCount}건</span>
             </h2>
-            <Link href="/admin/issues?status=OPEN" className="text-sm font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-foreground">
+            <Link href="/admin/issues?status=OPEN" className="text-sm font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-brand">
               제보 관리
             </Link>
           </div>

@@ -37,9 +37,9 @@ export function Card({
 }
 
 const BUTTON_STYLE = {
-  primary: "bg-brand text-white hover:bg-black disabled:bg-stone-400",
+  primary: "bg-brand text-white hover:bg-brand-hover disabled:bg-stone-400",
   secondary: "border border-line bg-surface text-foreground hover:bg-background disabled:text-subtle",
-  ai: "bg-ai text-white hover:bg-[#e64d00] disabled:bg-[#ffb48f]",
+  ai: "bg-ai text-foreground hover:bg-ai-hover disabled:bg-ai-soft disabled:text-subtle",
   danger: "border border-[#efc6c6] bg-surface text-[#c41c1c] hover:bg-[#fdf3f3] disabled:text-rose-300",
 };
 
@@ -92,13 +92,14 @@ export function Tag({
   tone = "gray",
 }: {
   children: React.ReactNode;
-  tone?: "gray" | "amber" | "violet" | "rose" | "green" | "ai";
+  tone?: "gray" | "amber" | "butter" | "violet" | "rose" | "green" | "ai";
 }) {
   const tones = {
     gray: "bg-surface-2 text-foreground",
     amber: "bg-amber-50 text-amber-800",
-    violet: "bg-[#eef0ff] text-[#2b31a8]",
-    ai: "bg-ai-soft text-[#c24100]",
+    butter: "bg-butter text-butter-text",
+    violet: "bg-brand-soft text-brand-text",
+    ai: "bg-ai-soft text-ai-text",
     rose: "bg-rose-50 text-rose-700",
     green: "bg-emerald-50 text-emerald-700",
   };
@@ -176,4 +177,4 @@ export function Field({
 }
 
 export const inputClass =
-  "w-full rounded-lg border border-line bg-surface px-3.5 py-2.5 text-sm outline-none placeholder:text-subtle focus:border-foreground focus:ring-2 focus:ring-foreground/10";
+  "w-full rounded-lg border border-line bg-surface px-3.5 py-2.5 text-sm outline-none placeholder:text-subtle focus:border-brand focus:ring-2 focus:ring-brand/20";

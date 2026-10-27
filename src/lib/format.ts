@@ -14,7 +14,7 @@ export const STATUS_LABEL: Record<DisplayStatus, string> = {
 };
 
 export const STATUS_STYLE: Record<DisplayStatus, string> = {
-  UPCOMING: "bg-[#eef0ff] text-[#2b31a8] ring-[#d4d8ff]",
+  UPCOMING: "bg-brand-soft text-brand-text ring-[#d3e0fd]",
   ONGOING: "bg-[#effaf2] text-[#156b34] ring-[#bfe5cb]",
   DONE: "bg-surface-2 text-muted ring-line",
   CANCELLED: "bg-[#fdf3f3] text-[#a51717] ring-[#efc6c6]",

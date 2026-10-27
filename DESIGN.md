@@ -552,9 +552,12 @@ Intercom resists drop shadows. Depth is communicated by the white-on-cream surfa
 > 위 내용은 [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)의 `design-md/intercom/DESIGN.md`(MIT License)를 그대로 가져온 것이다.
 > 특정 회사의 로고·이름·문구는 쓰지 않고, 색·글꼴·모양 같은 디자인 언어만 참고한다.
 
-- **바탕**: 크림색 `canvas` #f5f1ec. 카드·입력칸은 흰색 `surface-1` + 1px `hairline` #d3cec6. 그림자는 쓰지 않는다.
-- **주요 버튼**: 검정 `ink` #111111, 모서리 8px. 보조 버튼은 흰 바탕 + hairline 테두리.
-- **AI 포인트 색**: 주황 #ff5600은 AI 예약(챗봇 버튼, AI 배지, AI 보내기 버튼)에만 쓴다. 다른 곳에는 쓰지 않는다.
+- **구조는 위 문서를 따르고, 색은 시안 A "블루 + 버터"로 바꿨다.** (처음 적용한 크림색·검정이 칙칙하다는 의견에 따라 변경)
+- **바탕**: 아주 연한 블루그레이 #F5F7FB. 카드·입력칸은 오프화이트 #FCFDFF + 1px 테두리 #E3E8F0. 그림자는 쓰지 않는다.
+- **글씨**: 오션 네이비 #0A1680, 보조 글씨 #5B6585.
+- **주요 버튼·내 예약·선택된 메뉴**: 클린 블루 #3182F6 (hover #1B64DA), 연한 파랑 #E8EFFE 위 글씨는 #1F3FA8. 모서리 8px. 보조 버튼은 오프화이트 + 테두리.
+- **교육·행사**: 버터 옐로 #FBEDB0, 위 글씨 #6B5200.
+- **AI 포인트 색**: 파스텔 오렌지 #F1B94C(위 아이콘·글씨는 네이비)는 AI 예약(챗봇 버튼, AI 메뉴 점, AI 배지, 보내기 버튼)에만 쓴다.
 - **글꼴**: Saans 대신 Pretendard(한글, 라틴 글자는 Inter 기반). 제목은 굵기 500~600 + 살짝 좁은 자간.
 - **모서리**: 버튼·입력 8px, 카드 12px, 큰 패널(챗봇 창) 16px. 상태 배지만 동그랗게.
 - **상태 색**(예정·진행 중·끝남·취소)은 구분이 필요해서 옅은 의미 색을 쓰되, 진하지 않게 한다.

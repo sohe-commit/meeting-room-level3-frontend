@@ -109,7 +109,7 @@ export default function NewReservationPage() {
                   aria-pressed={meetingType === t}
                   className={`rounded-lg border px-3.5 py-2 text-sm transition ${
                     meetingType === t
-                      ? "border-foreground bg-foreground font-medium text-white"
+                      ? "border-brand bg-brand font-medium text-white"
                       : "border-line bg-surface hover:bg-background"
                   }`}
                 >
@@ -123,7 +123,7 @@ export default function NewReservationPage() {
                     setStartTime("10:00");
                     setEndTime("19:00");
                   }}
-                  className="rounded-lg border border-dashed border-line px-3.5 py-2 text-sm text-muted hover:border-foreground hover:text-foreground"
+                  className="rounded-lg border border-dashed border-line px-3.5 py-2 text-sm text-muted hover:border-brand hover:text-foreground"
                 >
                   하루 종일로 맞추기
                 </button>
