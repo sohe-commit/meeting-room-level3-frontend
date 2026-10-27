@@ -5,13 +5,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { ChatProvider } from "@/lib/ai-chat";
 import { useAuth } from "@/lib/auth";
-import { ChatWidget } from "./ChatWidget";
+import { AiMenuButton, ChatWidget } from "./ChatWidget";
 import { Button, Loading } from "./ui";
 
 const MENU = [
   { href: "/rooms", label: "회의실" },
   { href: "/timeline", label: "예약표" },
-  { href: "/ai", label: "AI 예약", ai: true },
   { href: "/my", label: "내 예약" },
 ];
 
@@ -58,9 +57,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   if (!ready || !user) return <Loading />;
 
   const isAdminPage = pathname.startsWith("/admin");
-  const linkClass = (href: string) =>
+  // href 가 null 이면 화면 이동이 아닌 버튼 (AI 예약 챗봇 열기)
+  const linkClass = (href: string | null) =>
     `flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-      isActive(pathname, href)
+      href && isActive(pathname, href)
         ? "bg-surface text-foreground ring-1 ring-line"
         : "text-muted hover:text-foreground"
     }`;
@@ -76,10 +76,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <nav className="hidden flex-1 gap-1 md:flex">
               {MENU.map((m) => (
                 <Link key={m.href} href={m.href} className={linkClass(m.href)}>
-                  {"ai" in m && <i className="h-1.5 w-1.5 rounded-full bg-ai" aria-hidden />}
                   {m.label}
                 </Link>
               ))}
+              <AiMenuButton className={linkClass(null)} />
             </nav>
             <div className="ml-auto flex items-center gap-2 text-sm">
               <span className="hidden text-muted sm:inline">
@@ -107,10 +107,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <nav className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 pb-2 md:hidden">
             {MENU.map((m) => (
               <Link key={m.href} href={m.href} className={linkClass(m.href)}>
-                {"ai" in m && <i className="h-1.5 w-1.5 rounded-full bg-ai" aria-hidden />}
                 {m.label}
               </Link>
             ))}
+            <AiMenuButton className={linkClass(null)} />
           </nav>
           {user.role === "ADMIN" && (
             <div className="border-t border-line bg-surface-2/60">
@@ -134,8 +134,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             children
           )}
         </main>
-        {/* AI 예약 챗봇: 전용 화면(/ai)에서는 이미 크게 보이므로 띄우지 않는다 */}
-        {pathname !== "/ai" && <ChatWidget />}
+        {/* AI 예약 챗봇: 모든 화면 오른쪽 아래 */}
+        <ChatWidget />
       </div>
     </ChatProvider>
   );

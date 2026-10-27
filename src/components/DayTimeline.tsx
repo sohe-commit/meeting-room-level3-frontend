@@ -86,8 +86,16 @@ export function DayTimeline({
               style={{ gridColumn: i + 2, gridRow: `${row(r.startTime)} / ${row(r.endTime)}` }}
               title={`${r.startTime}~${r.endTime} ${r.departmentName ?? ""} ${r.title}`}
             >
-              <div className="font-semibold">
-                {r.startTime}~{r.endTime} {r.isMine && "· 내 예약"}
+              <div className="flex items-center gap-1 font-semibold">
+                {r.isMine && (
+                  <span className="shrink-0 rounded bg-white px-1 py-px text-[10px] font-semibold leading-tight text-foreground">
+                    내 예약
+                  </span>
+                )}
+                <span className="truncate">
+                  {r.startTime}~{r.endTime}
+                </span>
+                {r.meetingType === "TRAINING" && <span className="shrink-0 text-[10px] font-medium opacity-80">· 교육·행사</span>}
               </div>
               <div className="truncate">
                 {r.departmentName} · {r.title}

@@ -56,3 +56,14 @@ export function ChatWidget() {
     </>
   );
 }
+
+/** 상단 메뉴의 "AI 예약": 화면을 옮기지 않고 챗봇을 연다. */
+export function AiMenuButton({ className }: { className: string }) {
+  const { setOpen } = useChat();
+  return (
+    <button type="button" onClick={() => setOpen(true)} className={className}>
+      <i className="h-1.5 w-1.5 rounded-full bg-ai" aria-hidden />
+      AI 예약
+    </button>
+  );
+}

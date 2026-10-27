@@ -2,6 +2,7 @@ import type {
   DisplayStatus,
   IssueCategory,
   IssueEquipment,
+  MeetingType,
   Room,
 } from "./types";
 
@@ -91,3 +92,8 @@ export function minutesToTime(minutes: number): string {
 export function isPast(date: string, time: string): boolean {
   return new Date(`${date}T${time}:00+09:00`).getTime() <= Date.now();
 }
+
+export const MEETING_TYPE_LABEL: Record<MeetingType, string> = {
+  MEETING: "일반 회의",
+  TRAINING: "교육·행사",
+};

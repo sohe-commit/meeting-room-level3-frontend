@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Button, ButtonLink, Card, ErrorBox, Loading, StatusBadge, SuccessBox, Tag } from "@/components/ui";
 import { ApiError, api } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
-import { formatDate, formatDateTime } from "@/lib/format";
+import { MEETING_TYPE_LABEL, formatDate, formatDateTime } from "@/lib/format";
 import type { Reservation } from "@/lib/types";
 import { useLoad } from "@/lib/use-load";
 
@@ -37,6 +37,7 @@ export default function ReservationDetailPage() {
     ["회의실", <Link key="room" href={`/rooms/${r.roomId}`} className="font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-foreground">{r.roomName} ({r.roomFloor}층)</Link>],
     ["날짜", formatDate(r.date)],
     ["시간", `${r.startTime} ~ ${r.endTime}`],
+    ["회의 유형", MEETING_TYPE_LABEL[r.meetingType]],
     ["참석 인원", `${r.attendeeCount}명`],
     ["부서", r.departmentName ?? "-"],
     ["예약 방법", r.createdVia === "AI" ? <Tag key="via" tone="ai">AI 예약</Tag> : "직접 예약"],

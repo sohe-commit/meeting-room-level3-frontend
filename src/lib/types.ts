@@ -30,12 +30,16 @@ export interface Room {
   openIssueCount?: number;
 }
 
+/** 회의 유형: 일반 회의 / 교육·행사 (3시간을 넘기는 교육·행사는 관리자만) */
+export type MeetingType = "MEETING" | "TRAINING";
+
 export interface Reservation {
   id: number;
   roomId: number;
   roomName: string | null;
   roomFloor: number | null;
   title: string;
+  meetingType: MeetingType;
   attendeeCount: number;
   date: string;
   startTime: string;

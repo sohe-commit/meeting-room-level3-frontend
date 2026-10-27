@@ -22,6 +22,7 @@ export function ReservationRow({
             {formatDate(r.date)} {r.startTime}~{r.endTime}
           </span>
           <span className="text-sm text-muted">{r.roomName}</span>
+          {r.meetingType === "TRAINING" && <Tag tone="amber">교육·행사</Tag>}
           {r.createdVia === "AI" && <Tag tone="ai">AI 예약</Tag>}
         </div>
         <p className="mt-1 truncate text-sm text-muted">

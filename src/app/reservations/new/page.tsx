@@ -4,8 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Button, Card, EquipmentTags, ErrorBox, Field, Loading, PageTitle, inputClass } from "@/components/ui";
 import { ApiError, api } from "@/lib/api";
-import { TIME_OPTIONS, addDays, minutesToTime, timeToMinutes, todayKst } from "@/lib/format";
-import type { Reservation, Room } from "@/lib/types";
+import { useAuth } from "@/lib/auth";
+import { MEETING_TYPE_LABEL, TIME_OPTIONS, addDays, minutesToTime, timeToMinutes, todayKst } from "@/lib/format";
+import type { MeetingType, Reservation, Room } from "@/lib/types";
 import { useLoad } from "@/lib/use-load";
 
 export default function NewReservationPage() {
@@ -17,6 +18,9 @@ export default function NewReservationPage() {
   const [date, setDate] = useState(params.get("date") ?? today);
   const [startTime, setStartTime] = useState(params.get("start") ?? "");
   const [endTime, setEndTime] = useState(params.get("end") ?? "");
+  const { user } = useAuth();
+  const isAdmin = user?.role === "ADMIN";
+  const [meetingType, setMeetingType] = useState<MeetingType>("MEETING");
   const [title, setTitle] = useState("");
   const [attendeeCount, setAttendeeCount] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -48,6 +52,7 @@ export default function NewReservationPage() {
           startTime,
           endTime,
           title,
+          meetingType,
           attendeeCount: attendeeCount === "" ? undefined : Number(attendeeCount),
         },
       });
@@ -63,7 +68,7 @@ export default function NewReservationPage() {
 
   return (
     <>
-      <PageTitle title="예약하기" description="30분 단위로 오전 10시~오후 7시, 한 번에 최대 3시간, 오늘부터 30일 뒤까지 예약할 수 있어요." />
+      <PageTitle title="예약하기" description="30분 단위로 오전 10시~오후 7시, 한 번에 최대 3시간(관리자가 잡는 교육·행사는 하루 종일), 오늘부터 30일 뒤까지 예약할 수 있어요." />
       <Card className="max-w-2xl">
         <form onSubmit={submit} className="space-y-4" noValidate>
           <Field label="회의실">
@@ -92,6 +97,46 @@ export default function NewReservationPage() {
               onChange={(e) => setDate(e.target.value)}
             />
           </Field>
+
+          <div role="group" aria-label="회의 유형">
+            <span className="mb-1.5 block text-sm font-medium">회의 유형</span>
+            <div className="flex flex-wrap gap-2">
+              {(Object.keys(MEETING_TYPE_LABEL) as MeetingType[]).map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setMeetingType(t)}
+                  aria-pressed={meetingType === t}
+                  className={`rounded-lg border px-3.5 py-2 text-sm transition ${
+                    meetingType === t
+                      ? "border-foreground bg-foreground font-medium text-white"
+                      : "border-line bg-surface hover:bg-background"
+                  }`}
+                >
+                  {MEETING_TYPE_LABEL[t]}
+                </button>
+              ))}
+              {meetingType === "TRAINING" && isAdmin && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setStartTime("10:00");
+                    setEndTime("19:00");
+                  }}
+                  className="rounded-lg border border-dashed border-line px-3.5 py-2 text-sm text-muted hover:border-foreground hover:text-foreground"
+                >
+                  하루 종일로 맞추기
+                </button>
+              )}
+            </div>
+            <span className="mt-1 block text-xs text-muted">
+              {meetingType === "MEETING"
+                ? "한 번에 최대 3시간까지 예약할 수 있어요."
+                : isAdmin
+                  ? "교육·행사는 하루 종일(오전 10시~오후 7시)까지 잡을 수 있어요."
+                  : "직원은 최대 3시간까지예요. 하루 종일 써야 하는 교육·행사는 총무팀에 요청해 주세요."}
+            </span>
+          </div>
 
           <div className="grid grid-cols-2 gap-3">
             <Field label="시작 시각">
