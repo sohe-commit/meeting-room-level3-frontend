@@ -79,10 +79,15 @@ export interface Timeline {
 }
 
 /** AI 예약 결과 (POST /ai/reserve) */
+/** AI가 읽은 예약 한 건의 날짜·시간 */
+export interface AiSlot {
+  date: string;
+  startTime: string;
+  endTime: string;
+}
+
 export interface AiConditions {
-  dates: string[];
-  startTime: string | null;
-  endTime: string | null;
+  slots: AiSlot[];
   attendeeCount: number | null;
   needs: { tv: boolean; videoConf: boolean; whiteboard: boolean; projector: boolean };
   title: string | null;
@@ -93,6 +98,6 @@ export interface AiResult {
   message: string;
   interpreted?: AiConditions;
   reservations?: Reservation[];
-  failures?: { date: string; message: string }[];
+  failures?: (AiSlot & { message: string })[];
   suggestions?: { date: string; startTime: string; endTime: string; roomName: string }[];
 }

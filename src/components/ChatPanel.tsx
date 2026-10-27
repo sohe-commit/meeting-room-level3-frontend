@@ -34,8 +34,7 @@ export function AiMark({ size = 28 }: { size?: number }) {
 function Conditions({ c }: { c: AiConditions }) {
   const needs = (Object.keys(NEED_LABEL) as (keyof typeof NEED_LABEL)[]).filter((k) => c.needs?.[k]);
   const chips = [
-    ...(c.dates ?? []).map((d) => `📅 ${formatDate(d)}`),
-    c.startTime && `🕑 ${c.startTime}${c.endTime ? `~${c.endTime}` : ""}`,
+    ...(c.slots ?? []).map((s) => `📅 ${formatDate(s.date)} ${s.startTime}~${s.endTime}`),
     c.attendeeCount && `👥 ${c.attendeeCount}명`,
     ...needs.map((k) => NEED_LABEL[k]),
     c.title && `📝 ${c.title}`,
@@ -55,11 +54,26 @@ function Conditions({ c }: { c: AiConditions }) {
   );
 }
 
+/** 추천 시간을 눌렀을 때 보낼 문장. 앞 대화가 끝났어도 혼자 읽히도록 조건을 모두 적는다. */
+function suggestionRequest(s: { date: string; startTime: string; endTime: string }, c?: AiConditions) {
+  const needs = c ? (Object.keys(NEED_LABEL) as (keyof typeof NEED_LABEL)[]).filter((k) => c.needs?.[k]) : [];
+  return [
+    `${formatDate(s.date)} ${s.startTime}~${s.endTime}에`,
+    c?.attendeeCount && `${c.attendeeCount}명`,
+    needs.length > 0 && `${needs.map((k) => NEED_LABEL[k]).join("·")} 필요`,
+    c?.title && `"${c.title}"`,
+    "한 건만 예약해 줘",
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
 function AssistantMessage({ m, onNavigate }: { m: ChatMessage; onNavigate: () => void }) {
   const { send, cancel, busy } = useChat();
   const r = m.result;
   const booked = r?.reservations ?? [];
   const active = booked.filter((b) => b.status === "UPCOMING" || b.status === "ONGOING");
+  const noRoom = r?.failures?.find((f) => f.message.includes("빈 회의실"));
 
   return (
     <div className="flex items-start gap-2">
@@ -120,11 +134,11 @@ function AssistantMessage({ m, onNavigate }: { m: ChatMessage; onNavigate: () =>
           </div>
         )}
 
-        {r?.failures && r.failures.length > 0 && booked.length > 0 && (
+        {r?.failures && r.failures.length > 0 && (booked.length > 0 || r.failures.length > 1 || (r.interpreted?.slots.length ?? 0) > 1) && (
           <ul className="space-y-1 rounded-xl border border-[#f3dcc0] bg-[#fdf7ef] px-3 py-2 text-xs text-[#8a4b00]">
             {r.failures.map((f) => (
-              <li key={f.date}>
-                ✕ {formatDate(f.date)} — {f.message}
+              <li key={`${f.date} ${f.startTime}`}>
+                ✕ {formatDate(f.date)} {f.startTime}~{f.endTime} — {f.message}
               </li>
             ))}
           </ul>
@@ -132,14 +146,16 @@ function AssistantMessage({ m, onNavigate }: { m: ChatMessage; onNavigate: () =>
 
         {r?.suggestions && r.suggestions.length > 0 && (
           <div>
-            <p className="mb-1 text-xs text-muted">이 시간은 비어 있어요. 눌러서 바로 예약해요.</p>
+            <p className="mb-1 text-xs text-muted">
+              {noRoom ? `${noRoom.startTime} 대신 ` : ""}비어 있는 시간이에요. 눌러서 바로 예약해요.
+            </p>
             <div className="flex flex-wrap gap-1.5">
               {r.suggestions.map((s) => (
                 <button
                   key={s.startTime}
                   type="button"
                   disabled={busy}
-                  onClick={() => send(`${formatDate(s.date)} ${s.startTime}~${s.endTime}으로 해 줘`)}
+                  onClick={() => send(suggestionRequest(s, r.interpreted))}
                   className="rounded-lg border border-line bg-surface px-2.5 py-1 text-xs font-medium hover:border-brand disabled:opacity-50"
                 >
                   {s.startTime}~{s.endTime} · {s.roomName}
@@ -226,7 +242,7 @@ export function ChatPanel({ onClose, onNavigate }: { onClose?: () => void; onNav
           <div className="max-w-[85%] rounded-2xl rounded-tl-md bg-background px-3.5 py-2.5 text-sm leading-relaxed">
             안녕하세요! 날짜·시간·인원을 알려 주시면 조건에 맞는 빈 회의실을 찾아 바로 예약해 드려요.
             <span className="mt-1 block text-xs text-muted">
-              여러 날(최대 5일)도 한 번에 예약할 수 있어요. 부족한 조건은 제가 되물어 볼게요.
+              여러 날·여러 시간도 한 번에 최대 5건까지 예약할 수 있어요. 부족한 조건은 제가 되물어 볼게요.
             </span>
           </div>
         </div>
