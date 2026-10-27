@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { Button, Card, ErrorBox, Loading, StatusBadge, SuccessBox, Tag } from "@/components/ui";
+import { Button, ButtonLink, Card, ErrorBox, Loading, StatusBadge, SuccessBox, Tag } from "@/components/ui";
 import { ApiError, api } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { formatDate, formatDateTime } from "@/lib/format";
@@ -97,11 +97,20 @@ export default function ReservationDetailPage() {
         </Card>
       )}
 
-      {canCancel && (
-        <Button variant="danger" onClick={cancel}>
-          예약 취소
-        </Button>
-      )}
+      {/* 예약을 마친 뒤 다음에 갈 곳 */}
+      <div className="flex flex-wrap items-center gap-2">
+        <ButtonLink href={`/timeline?date=${r.date}`} variant="secondary">
+          예약표에서 보기
+        </ButtonLink>
+        <ButtonLink href="/my" variant="secondary">
+          내 예약 목록
+        </ButtonLink>
+        {canCancel && (
+          <Button variant="danger" onClick={cancel} className="sm:ml-auto">
+            예약 취소
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

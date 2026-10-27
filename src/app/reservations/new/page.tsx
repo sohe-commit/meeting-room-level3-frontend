@@ -51,7 +51,8 @@ export default function NewReservationPage() {
           attendeeCount: attendeeCount === "" ? undefined : Number(attendeeCount),
         },
       });
-      router.push(`/reservations/${created.id}?created=1`);
+      // 뒤로 가기를 눌러도 다 쓴 예약 양식으로 돌아가지 않게 주소를 바꿔 끼운다.
+      router.replace(`/reservations/${created.id}?created=1`);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "예약하지 못했어요.");
       setBusy(false);
