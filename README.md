@@ -32,7 +32,7 @@ npm run dev                  # http://localhost:3100
 | `/rooms/[id]` | 회의실 상세 + 날짜별 시간표 + 시설 제보 | 모두 |
 | `/timeline` | 전체 예약표 (회의실 전체 하루 시간표) | 모두 |
 | `/reservations/new` | 예약 등록 | 모두 |
-| `/ai` | AI로 예약하기 | 모두 |
+| `/ai` | AI 예약 챗봇 (크게 보기). 다른 화면에서는 오른쪽 아래 주황 버튼으로 열기 | 모두 |
 | `/my` | 내 예약 (상태별, 취소) | 모두 |
 | `/reservations/[id]` | 예약 상세 (예약자 연락처는 관리자·본인만) | 모두 |
 | `/admin` | 관리자 현황판 | 관리자 |
@@ -45,3 +45,11 @@ npm run dev                  # http://localhost:3100
 
 - Environment Variables에 `NEXT_PUBLIC_API_URL` = Render 백엔드 주소를 넣어요.
 - 백엔드의 `FRONTEND_URL`에 Vercel 주소를 넣어야 화면에서 백엔드를 부를 수 있어요.
+
+## 디자인
+
+화면 디자인은 [`DESIGN.md`](DESIGN.md)를 기준으로 해요. ([VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)의 Intercom 분석 문서, MIT)
+
+- 크림색 바탕 + 흰 카드 + 검정 글씨·버튼, 그림자 대신 얇은 테두리
+- 주황색은 **AI 예약에만** 써요 (챗봇 버튼, AI 배지)
+- 글꼴은 Pretendard

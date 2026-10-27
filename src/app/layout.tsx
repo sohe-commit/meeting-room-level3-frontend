@@ -13,6 +13,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ko" className="h-full antialiased">
+      <head>
+        {/* 한글 글꼴 Pretendard (라틴 글자는 Inter 기반) */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+      </head>
       <body className="min-h-full">
         <AuthProvider>
           {/* 주소의 값(쿼리, :id)을 읽는 화면은 브라우저에서 그린다 */}

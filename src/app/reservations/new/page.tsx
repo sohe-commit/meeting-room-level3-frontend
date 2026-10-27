@@ -77,7 +77,7 @@ export default function NewReservationPage() {
             </select>
           </Field>
           {room && (
-            <div className="-mt-2 rounded-lg bg-slate-50 px-3 py-2">
+            <div className="-mt-2 rounded-lg bg-background px-3 py-2">
               <EquipmentTags room={room} />
             </div>
           )}

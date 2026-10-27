@@ -3,6 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ApiError } from "./api";
 
+/** 예약이 새로 생기거나 취소됐을 때 window 로 보내는 신호 */
+export const RESERVATIONS_CHANGED = "reservations-changed";
+
 interface LoadState<T> {
   key: string;
   data: T | null;
@@ -39,6 +42,13 @@ export function useLoad<T>(load: () => Promise<T>, deps: unknown[]) {
       alive = false;
     };
   }, [requestKey]);
+
+  // 다른 곳(AI 챗봇 등)에서 예약이 바뀌면 화면 데이터를 다시 불러온다.
+  useEffect(() => {
+    const onChange = () => setVersion((v) => v + 1);
+    window.addEventListener(RESERVATIONS_CHANGED, onChange);
+    return () => window.removeEventListener(RESERVATIONS_CHANGED, onChange);
+  }, []);
 
   const reload = useCallback(() => setVersion((v) => v + 1), []);
   const setData = useCallback((data: T) => setState((prev) => ({ ...prev, data })), []);

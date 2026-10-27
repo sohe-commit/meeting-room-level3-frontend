@@ -22,9 +22,9 @@ export function ReservationRow({
             {formatDate(r.date)} {r.startTime}~{r.endTime}
           </span>
           <span className="text-sm text-muted">{r.roomName}</span>
-          {r.createdVia === "AI" && <Tag tone="violet">AI 예약</Tag>}
+          {r.createdVia === "AI" && <Tag tone="ai">AI 예약</Tag>}
         </div>
-        <p className="mt-1 truncate text-sm text-slate-600">
+        <p className="mt-1 truncate text-sm text-muted">
           {showDepartment && r.departmentName && `${r.departmentName}${r.reserver ? ` ${r.reserver.name}` : ""} · `}
           {r.title} · {r.attendeeCount}명
         </p>

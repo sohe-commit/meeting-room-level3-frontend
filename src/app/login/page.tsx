@@ -42,7 +42,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-10">
       <div className="w-full max-w-sm">
-        <h1 className="mb-1 text-center text-2xl font-bold text-brand">🗓️ 회의실 예약</h1>
+        <h1 className="mb-1 text-center text-2xl font-semibold text-brand">🗓️ 회의실 예약</h1>
         <p className="mb-6 text-center text-sm text-muted">(주)가상테크 사내 회의실 예약 시스템</p>
         <form onSubmit={submit} className="space-y-4 rounded-xl border border-line bg-surface p-6" noValidate>
           <Field label="이메일">

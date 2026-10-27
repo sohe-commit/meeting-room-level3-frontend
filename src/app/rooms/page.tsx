@@ -58,8 +58,8 @@ export default function RoomsPage() {
                 onClick={() => setNeeds((n) => ({ ...n, [f.key]: !n[f.key] }))}
                 className={`rounded-full border px-3 py-1.5 text-sm transition ${
                   needs[f.key]
-                    ? "border-brand bg-brand-soft font-semibold text-brand"
-                    : "border-line bg-white text-slate-600 hover:bg-slate-50"
+                    ? "border-foreground bg-foreground font-medium text-white"
+                    : "border-line bg-white text-muted hover:bg-background"
                 }`}
               >
                 {f.label}
@@ -78,10 +78,10 @@ export default function RoomsPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {rooms?.map((room) => (
             <Link key={room.id} href={`/rooms/${room.id}`} className="group">
-              <Card className="h-full transition group-hover:border-brand group-hover:shadow-sm">
+              <Card className="h-full transition group-hover:border-foreground">
                 <div className="mb-2 flex items-start justify-between gap-2">
                   <div>
-                    <h2 className="text-lg font-bold">{room.name}</h2>
+                    <h2 className="text-lg font-semibold">{room.name}</h2>
                     <p className="text-sm text-muted">
                       {room.floor}층 · 정원 {room.capacity}명
                     </p>

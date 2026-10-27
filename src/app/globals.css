@@ -1,26 +1,37 @@
 @import "tailwindcss";
 
+/* 디자인 기준: DESIGN.md (크림색 바탕 + 검정 글씨·버튼, 주황은 AI에만) */
 :root {
   color-scheme: light;
-  --background: #f5f6f8;
-  --surface: #ffffff;
-  --foreground: #1c2330;
-  --muted: #667085;
-  --line: #e4e7ec;
-  --brand: #2f5bea;
-  --brand-soft: #e9efff;
+  --background: #f5f1ec; /* canvas */
+  --surface: #ffffff; /* surface-1 */
+  --surface-2: #ebe7e1;
+  --foreground: #111111; /* ink */
+  --muted: #626260; /* ink-muted */
+  --subtle: #7b7b78; /* ink-subtle */
+  --line: #d3cec6; /* hairline */
+  --line-soft: #ebe7e1; /* hairline-soft */
+  --brand: #111111; /* 주요 버튼·링크는 검정 */
+  --brand-soft: #ebe7e1;
+  --ai: #ff5600; /* AI 예약 전용 포인트 색 */
+  --ai-soft: #fff1ea;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
   --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
   --color-brand: var(--brand);
   --color-brand-soft: var(--brand-soft);
-  --font-sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui,
-    sans-serif;
+  --color-ai: var(--ai);
+  --color-ai-soft: var(--ai-soft);
+  --font-sans: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic",
+    system-ui, sans-serif;
 }
 
 body {
@@ -34,4 +45,9 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+h1,
+h2 {
+  letter-spacing: -0.02em;
 }

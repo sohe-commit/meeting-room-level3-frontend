@@ -13,10 +13,10 @@ export const STATUS_LABEL: Record<DisplayStatus, string> = {
 };
 
 export const STATUS_STYLE: Record<DisplayStatus, string> = {
-  UPCOMING: "bg-blue-50 text-blue-700 ring-blue-200",
-  ONGOING: "bg-emerald-50 text-emerald-700 ring-emerald-200",
-  DONE: "bg-slate-100 text-slate-600 ring-slate-200",
-  CANCELLED: "bg-rose-50 text-rose-700 ring-rose-200",
+  UPCOMING: "bg-[#eef0ff] text-[#2b31a8] ring-[#d4d8ff]",
+  ONGOING: "bg-[#effaf2] text-[#156b34] ring-[#bfe5cb]",
+  DONE: "bg-surface-2 text-muted ring-line",
+  CANCELLED: "bg-[#fdf3f3] text-[#a51717] ring-[#efc6c6]",
 };
 
 export const CATEGORY_LABEL: Record<IssueCategory, string> = {

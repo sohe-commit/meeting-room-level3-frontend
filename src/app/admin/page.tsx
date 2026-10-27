@@ -52,8 +52,8 @@ export default function AdminDashboardPage() {
   const stats = [
     { label: "오늘 예약", value: d.today.total, href: listLink(), tone: "text-foreground" },
     { label: "진행 중", value: d.today.ongoing, href: listLink("ONGOING"), tone: "text-emerald-600" },
-    { label: "예정", value: d.today.upcoming, href: listLink("UPCOMING"), tone: "text-blue-600" },
-    { label: "완료", value: d.today.done, href: listLink("DONE"), tone: "text-slate-500" },
+    { label: "예정", value: d.today.upcoming, href: listLink("UPCOMING"), tone: "text-[#2b31a8]" },
+    { label: "완료", value: d.today.done, href: listLink("DONE"), tone: "text-subtle" },
   ];
 
   return (
@@ -63,9 +63,9 @@ export default function AdminDashboardPage() {
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
         {stats.map((s) => (
           <Link key={s.label} href={s.href}>
-            <Card className="transition hover:border-brand">
+            <Card className="transition hover:border-foreground">
               <p className="text-sm text-muted">{s.label}</p>
-              <p className={`mt-1 text-3xl font-bold ${s.tone}`}>
+              <p className={`mt-1 text-3xl font-semibold ${s.tone}`}>
                 {s.value}
                 <span className="ml-0.5 text-base font-medium text-muted">건</span>
               </p>
@@ -76,7 +76,7 @@ export default function AdminDashboardPage() {
 
       <div className="mb-6 grid gap-4 lg:grid-cols-2">
         <Card>
-          <h2 className="mb-1 font-bold">회의실별 오늘 예약률</h2>
+          <h2 className="mb-1 font-semibold">회의실별 오늘 예약률</h2>
           <p className="mb-4 text-xs text-muted">예약된 시간 ÷ 하루 운영 시간(9시간)</p>
           <ul className="space-y-3">
             {d.rooms.map((room) => (
@@ -89,7 +89,7 @@ export default function AdminDashboardPage() {
                     {hours(room.reservedMinutes)} · <b className="text-foreground">{room.reservationRate}%</b>
                   </span>
                 </div>
-                <div className="h-2.5 overflow-hidden rounded-full bg-slate-100">
+                <div className="h-2.5 overflow-hidden rounded-full bg-surface-2">
                   <div className="h-full rounded-full bg-brand" style={{ width: `${Math.min(room.reservationRate, 100)}%` }} />
                 </div>
               </li>
@@ -98,7 +98,7 @@ export default function AdminDashboardPage() {
         </Card>
 
         <Card>
-          <h2 className="mb-1 font-bold">지금 사용 현황</h2>
+          <h2 className="mb-1 font-semibold">지금 사용 현황</h2>
           <p className="mb-4 text-xs text-muted">진행 중인 회의의 참석 인원 / 정원</p>
           <ul className="divide-y divide-line">
             {d.rooms.map((room) => (
@@ -119,10 +119,10 @@ export default function AdminDashboardPage() {
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="font-bold">
+            <h2 className="font-semibold">
               오늘 취소 <span className="text-rose-600">{d.cancelled.count}건</span>
             </h2>
-            <Link href="/admin/reservations?status=CANCELLED" className="text-sm text-brand hover:underline">
+            <Link href="/admin/reservations?status=CANCELLED" className="text-sm font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-foreground">
               전체 보기
             </Link>
           </div>
@@ -146,10 +146,10 @@ export default function AdminDashboardPage() {
 
         <Card>
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="font-bold">
+            <h2 className="font-semibold">
               처리 안 된 시설 제보 <span className="text-rose-600">{d.issues.openCount}건</span>
             </h2>
-            <Link href="/admin/issues?status=OPEN" className="text-sm text-brand hover:underline">
+            <Link href="/admin/issues?status=OPEN" className="text-sm font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-foreground">
               제보 관리
             </Link>
           </div>

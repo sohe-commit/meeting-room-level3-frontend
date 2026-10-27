@@ -34,12 +34,12 @@ export default function ReservationDetailPage() {
 
   const canCancel = r.isMine && (r.status === "UPCOMING" || r.status === "ONGOING");
   const rows: [string, React.ReactNode][] = [
-    ["회의실", <Link key="room" href={`/rooms/${r.roomId}`} className="text-brand hover:underline">{r.roomName} ({r.roomFloor}층)</Link>],
+    ["회의실", <Link key="room" href={`/rooms/${r.roomId}`} className="font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-foreground">{r.roomName} ({r.roomFloor}층)</Link>],
     ["날짜", formatDate(r.date)],
     ["시간", `${r.startTime} ~ ${r.endTime}`],
     ["참석 인원", `${r.attendeeCount}명`],
     ["부서", r.departmentName ?? "-"],
-    ["예약 방법", r.createdVia === "AI" ? <Tag key="via" tone="violet">AI 예약</Tag> : "직접 예약"],
+    ["예약 방법", r.createdVia === "AI" ? <Tag key="via" tone="ai">AI 예약</Tag> : "직접 예약"],
     ["예약한 시각", formatDateTime(r.createdAt)],
   ];
   if (r.cancelledAt) rows.push(["취소한 시각", formatDateTime(r.cancelledAt)]);
@@ -53,7 +53,7 @@ export default function ReservationDetailPage() {
       </div>
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <StatusBadge status={r.status} />
-        <h1 className="text-2xl font-bold">{r.title}</h1>
+        <h1 className="text-2xl font-semibold">{r.title}</h1>
         {r.isMine && <Tag tone="green">내 예약</Tag>}
       </div>
       <div className="mb-4 space-y-2">
@@ -82,7 +82,7 @@ export default function ReservationDetailPage() {
             <dd>{r.reserver.name}</dd>
             <dt className="text-muted">연락처</dt>
             <dd>
-              <a href={`tel:${r.reserver.phone}`} className="text-brand hover:underline">
+              <a href={`tel:${r.reserver.phone}`} className="font-medium text-foreground underline decoration-line underline-offset-4 hover:decoration-foreground">
                 {r.reserver.phone}
               </a>
             </dd>
@@ -90,7 +90,7 @@ export default function ReservationDetailPage() {
             <dd>{r.reserver.email}</dd>
           </dl>
           {user?.role === "ADMIN" && !r.isMine && (
-            <p className="mt-3 rounded-lg bg-slate-50 px-3 py-2 text-xs text-muted">
+            <p className="mt-3 rounded-lg bg-background px-3 py-2 text-xs text-muted">
               관리자도 다른 사람의 예약은 취소할 수 없어요. 필요하면 예약자에게 연락해 사정을 설명해 주세요.
             </p>
           )}

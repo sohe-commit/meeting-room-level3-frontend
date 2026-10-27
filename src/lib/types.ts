@@ -73,3 +73,22 @@ export interface Timeline {
   date: string;
   rooms: (Room & { reservations: Reservation[] })[];
 }
+
+/** AI 예약 결과 (POST /ai/reserve) */
+export interface AiConditions {
+  dates: string[];
+  startTime: string | null;
+  endTime: string | null;
+  attendeeCount: number | null;
+  needs: { tv: boolean; videoConf: boolean; whiteboard: boolean; projector: boolean };
+  title: string | null;
+}
+
+export interface AiResult {
+  status: "BOOKED" | "PARTIAL" | "NEED_MORE" | "REJECTED" | "NO_ROOM";
+  message: string;
+  interpreted?: AiConditions;
+  reservations?: Reservation[];
+  failures?: { date: string; message: string }[];
+  suggestions?: { date: string; startTime: string; endTime: string; roomName: string }[];
+}

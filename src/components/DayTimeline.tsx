@@ -31,7 +31,7 @@ export function DayTimeline({
         {rooms.map((room, i) => (
           <div
             key={room.id}
-            className="flex items-center justify-center border-b border-l border-line px-2 text-sm font-semibold"
+            className="flex items-center justify-center border-b border-l border-line px-2 text-sm font-medium"
             style={{ gridColumn: i + 2, gridRow: 1 }}
           >
             {room.name}
@@ -54,19 +54,19 @@ export function DayTimeline({
             const free = room.isActive && !isPast(date, time);
             const end = minutesToTime(Math.min(timeToMinutes(time) + 60, 19 * 60));
             const style = { gridColumn: i + 2, gridRow: row(time) };
-            const base = `border-l border-line ${time.endsWith(":00") ? "border-t" : "border-t border-t-slate-100"}`;
+            const base = `border-l border-line ${time.endsWith(":00") ? "border-t" : "border-t border-t-line-soft"}`;
             return free ? (
               <Link
                 key={`${room.id}-${time}`}
                 href={`/reservations/new?roomId=${room.id}&date=${date}&start=${time}&end=${end}`}
-                className={`${base} group flex items-center justify-center hover:bg-brand-soft`}
+                className={`${base} group flex items-center justify-center hover:bg-background`}
                 style={style}
                 aria-label={`${room.name} ${time} 예약하기`}
               >
-                <span className="hidden text-xs text-brand group-hover:inline">+ {time}</span>
+                <span className="hidden text-xs font-medium text-foreground group-hover:inline">+ {time}</span>
               </Link>
             ) : (
-              <div key={`${room.id}-${time}`} className={`${base} bg-slate-50`} style={style} />
+              <div key={`${room.id}-${time}`} className={`${base} bg-[#faf8f5]`} style={style} />
             );
           }),
         )}
@@ -76,12 +76,12 @@ export function DayTimeline({
             <Link
               key={r.id}
               href={`/reservations/${r.id}`}
-              className={`z-[5] m-0.5 overflow-hidden rounded-md px-2 py-1 text-xs leading-tight shadow-sm ring-1 ring-inset ${
+              className={`z-[5] m-0.5 overflow-hidden rounded-md px-2 py-1 text-xs leading-tight ring-1 ring-inset ${
                 r.isMine
-                  ? "bg-brand text-white ring-blue-700"
+                  ? "bg-foreground text-white ring-foreground"
                   : r.status === "DONE"
-                    ? "bg-slate-200 text-slate-600 ring-slate-300"
-                    : "bg-blue-100 text-blue-900 ring-blue-200"
+                    ? "bg-surface-2 text-muted ring-line"
+                    : "bg-[#eef0ff] text-[#1f2580] ring-[#d4d8ff]"
               }`}
               style={{ gridColumn: i + 2, gridRow: `${row(r.startTime)} / ${row(r.endTime)}` }}
               title={`${r.startTime}~${r.endTime} ${r.departmentName ?? ""} ${r.title}`}

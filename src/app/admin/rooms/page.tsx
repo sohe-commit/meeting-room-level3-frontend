@@ -109,7 +109,7 @@ export default function AdminRoomsPage() {
 
       {editingId !== null && (
         <Card className="mb-6 max-w-2xl">
-          <h2 className="mb-4 font-bold">{editingId === "new" ? "새 회의실 등록" : "회의실 정보 수정"}</h2>
+          <h2 className="mb-4 font-semibold">{editingId === "new" ? "새 회의실 등록" : "회의실 정보 수정"}</h2>
           <form onSubmit={save} className="space-y-4" noValidate>
             <Field label="이름">
               <input className={inputClass} maxLength={30} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="예: 금강" />
@@ -162,7 +162,7 @@ export default function AdminRoomsPage() {
             <Card key={room.id}>
               <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
                 <div>
-                  <h3 className="flex items-center gap-2 font-bold">
+                  <h3 className="flex items-center gap-2 font-semibold">
                     {room.name}
                     {room.isActive ? <Tag tone="green">사용 중</Tag> : <Tag tone="amber">사용 중지</Tag>}
                     {(room.openIssueCount ?? 0) > 0 && <Tag tone="rose">⚠️ 제보 {room.openIssueCount}</Tag>}

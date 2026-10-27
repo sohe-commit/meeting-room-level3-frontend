@@ -3,13 +3,15 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { ChatProvider } from "@/lib/ai-chat";
 import { useAuth } from "@/lib/auth";
-import { Loading } from "./ui";
+import { ChatWidget } from "./ChatWidget";
+import { Button, Loading } from "./ui";
 
 const MENU = [
   { href: "/rooms", label: "회의실" },
   { href: "/timeline", label: "예약표" },
-  { href: "/ai", label: "AI 예약" },
+  { href: "/ai", label: "AI 예약", ai: true },
   { href: "/my", label: "내 예약" },
 ];
 
@@ -47,9 +49,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className="mx-auto mt-24 max-w-sm px-4 text-center">
         <p className="mb-1 font-semibold">서버에 연결할 수 없어요.</p>
         <p className="mb-4 text-sm text-muted">서버가 잠들어 있었다면 깨어나는 데 30초쯤 걸릴 수 있어요.</p>
-        <button onClick={retry} className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white">
+        <Button onClick={retry}>
           다시 시도
-        </button>
+        </Button>
       </div>
     );
   }
@@ -57,78 +59,84 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   const isAdminPage = pathname.startsWith("/admin");
   const linkClass = (href: string) =>
-    `shrink-0 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+    `flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
       isActive(pathname, href)
-        ? "bg-brand-soft text-brand"
-        : "text-slate-600 hover:bg-slate-100"
+        ? "bg-surface text-foreground ring-1 ring-line"
+        : "text-muted hover:text-foreground"
     }`;
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-20 border-b border-line bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5">
-          <Link href="/rooms" className="shrink-0 text-base font-bold text-brand">
-            🗓️ 회의실 예약
-          </Link>
-          <nav className="hidden flex-1 gap-1 md:flex">
-            {MENU.map((m) => (
-              <Link key={m.href} href={m.href} className={linkClass(m.href)}>
-                {m.label}
-              </Link>
-            ))}
-          </nav>
-          <div className="ml-auto flex items-center gap-2 text-sm">
-            <span className="hidden text-slate-600 sm:inline">
-              {user.departmentName} · <b>{user.name}</b>
-            </span>
-            <span
-              className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
-                user.role === "ADMIN" ? "bg-violet-100 text-violet-700" : "bg-slate-100 text-slate-600"
-              }`}
-            >
-              {user.role === "ADMIN" ? "관리자" : "직원"}
-            </span>
-            <button
-              onClick={() => {
-                loggingOut.current = true;
-                logout();
-              }}
-              className="rounded-lg px-2 py-1 text-slate-500 hover:bg-slate-100"
-            >
-              로그아웃
-            </button>
-          </div>
-        </div>
-        {/* 휴대폰: 메뉴를 가로로 밀어서 보기 */}
-        <nav className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 pb-2 md:hidden">
-          {MENU.map((m) => (
-            <Link key={m.href} href={m.href} className={linkClass(m.href)}>
-              {m.label}
+    <ChatProvider>
+      <div className="flex min-h-screen flex-col">
+        <header className="sticky top-0 z-20 border-b border-line bg-background/95 backdrop-blur">
+          <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4">
+            <Link href="/rooms" className="shrink-0 text-base font-semibold tracking-tight text-foreground">
+              🗓️ 회의실 예약
             </Link>
-          ))}
-        </nav>
-        {user.role === "ADMIN" && (
-          <div className="border-t border-line bg-violet-50/60">
-            <nav className="mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto px-4 py-1.5">
-              <span className="mr-1 shrink-0 text-xs font-semibold text-violet-700">관리자</span>
-              {ADMIN_MENU.map((m) => (
+            <nav className="hidden flex-1 gap-1 md:flex">
+              {MENU.map((m) => (
                 <Link key={m.href} href={m.href} className={linkClass(m.href)}>
+                  {"ai" in m && <i className="h-1.5 w-1.5 rounded-full bg-ai" aria-hidden />}
                   {m.label}
                 </Link>
               ))}
             </nav>
+            <div className="ml-auto flex items-center gap-2 text-sm">
+              <span className="hidden text-muted sm:inline">
+                {user.departmentName} · <b>{user.name}</b>
+              </span>
+              <span
+                className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                  user.role === "ADMIN" ? "bg-foreground text-white" : "bg-surface-2 text-muted"
+                }`}
+              >
+                {user.role === "ADMIN" ? "관리자" : "직원"}
+              </span>
+              <button
+                onClick={() => {
+                  loggingOut.current = true;
+                  logout();
+                }}
+                className="rounded-lg px-2 py-1 text-subtle hover:bg-surface-2"
+              >
+                로그아웃
+              </button>
+            </div>
           </div>
-        )}
-      </header>
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">
-        {isAdminPage && user.role !== "ADMIN" ? (
-          <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-center text-amber-800">
-            관리자만 사용할 수 있는 기능이에요.
-          </div>
-        ) : (
-          children
-        )}
-      </main>
-    </div>
+          {/* 휴대폰: 메뉴를 가로로 밀어서 보기 */}
+          <nav className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 pb-2 md:hidden">
+            {MENU.map((m) => (
+              <Link key={m.href} href={m.href} className={linkClass(m.href)}>
+                {"ai" in m && <i className="h-1.5 w-1.5 rounded-full bg-ai" aria-hidden />}
+                {m.label}
+              </Link>
+            ))}
+          </nav>
+          {user.role === "ADMIN" && (
+            <div className="border-t border-line bg-surface-2/60">
+              <nav className="mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto px-4 py-1.5">
+                <span className="mr-1 shrink-0 text-xs font-semibold text-foreground">관리자</span>
+                {ADMIN_MENU.map((m) => (
+                  <Link key={m.href} href={m.href} className={linkClass(m.href)}>
+                    {m.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          )}
+        </header>
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-8 pb-28">
+          {isAdminPage && user.role !== "ADMIN" ? (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-center text-amber-800">
+              관리자만 사용할 수 있는 기능이에요.
+            </div>
+          ) : (
+            children
+          )}
+        </main>
+        {/* AI 예약 챗봇: 전용 화면(/ai)에서는 이미 크게 보이므로 띄우지 않는다 */}
+        {pathname !== "/ai" && <ChatWidget />}
+      </div>
+    </ChatProvider>
   );
 }

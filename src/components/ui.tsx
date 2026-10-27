@@ -14,7 +14,7 @@ export function PageTitle({
   return (
     <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
       <div>
-        <h1 className="text-xl font-bold sm:text-2xl">{title}</h1>
+        <h1 className="text-2xl font-semibold sm:text-[28px]">{title}</h1>
         {description && <p className="mt-1 text-sm text-muted">{description}</p>}
       </div>
       {action}
@@ -37,9 +37,10 @@ export function Card({
 }
 
 const BUTTON_STYLE = {
-  primary: "bg-brand text-white hover:bg-blue-700 disabled:bg-blue-300",
-  secondary: "border border-line bg-white text-foreground hover:bg-slate-50 disabled:text-slate-400",
-  danger: "border border-rose-200 bg-white text-rose-600 hover:bg-rose-50 disabled:text-rose-300",
+  primary: "bg-brand text-white hover:bg-black disabled:bg-stone-400",
+  secondary: "border border-line bg-surface text-foreground hover:bg-background disabled:text-subtle",
+  ai: "bg-ai text-white hover:bg-[#e64d00] disabled:bg-[#ffb48f]",
+  danger: "border border-[#efc6c6] bg-surface text-[#c41c1c] hover:bg-[#fdf3f3] disabled:text-rose-300",
 };
 
 export function Button({
@@ -51,7 +52,7 @@ export function Button({
 }) {
   return (
     <button
-      className={`inline-flex items-center justify-center gap-1 rounded-lg px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed ${BUTTON_STYLE[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-1 rounded-lg px-[18px] py-2.5 text-[15px] leading-5 font-medium transition disabled:cursor-not-allowed ${BUTTON_STYLE[variant]} ${className}`}
       {...props}
     />
   );
@@ -69,7 +70,7 @@ export function ButtonLink({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold transition ${BUTTON_STYLE[variant]}`}
+      className={`inline-flex items-center justify-center rounded-lg px-[18px] py-2.5 text-[15px] leading-5 font-medium transition ${BUTTON_STYLE[variant]}`}
     >
       {children}
     </Link>
@@ -91,12 +92,13 @@ export function Tag({
   tone = "gray",
 }: {
   children: React.ReactNode;
-  tone?: "gray" | "amber" | "violet" | "rose" | "green";
+  tone?: "gray" | "amber" | "violet" | "rose" | "green" | "ai";
 }) {
   const tones = {
-    gray: "bg-slate-100 text-slate-700",
+    gray: "bg-surface-2 text-foreground",
     amber: "bg-amber-50 text-amber-800",
-    violet: "bg-violet-50 text-violet-700",
+    violet: "bg-[#eef0ff] text-[#2b31a8]",
+    ai: "bg-ai-soft text-[#c24100]",
     rose: "bg-rose-50 text-rose-700",
     green: "bg-emerald-50 text-emerald-700",
   };
@@ -128,7 +130,7 @@ export function EquipmentTags({ room }: { room: Room }) {
 export function ErrorBox({ message }: { message: string | null }) {
   if (!message) return null;
   return (
-    <div role="alert" className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+    <div role="alert" className="rounded-lg border border-[#efc6c6] bg-[#fdf3f3] px-4 py-3 text-sm text-[#a51717]">
       {message}
     </div>
   );
@@ -137,7 +139,7 @@ export function ErrorBox({ message }: { message: string | null }) {
 export function SuccessBox({ message }: { message: string | null }) {
   if (!message) return null;
   return (
-    <div role="status" className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+    <div role="status" className="rounded-lg border border-[#bfe5cb] bg-[#effaf2] px-4 py-3 text-sm text-[#156b34]">
       {message}
     </div>
   );
@@ -166,7 +168,7 @@ export function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-sm font-semibold">{label}</span>
+      <span className="mb-1.5 block text-sm font-medium">{label}</span>
       {children}
       {hint && <span className="mt-1 block text-xs text-muted">{hint}</span>}
     </label>
@@ -174,4 +176,4 @@ export function Field({
 }
 
 export const inputClass =
-  "w-full rounded-lg border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20";
+  "w-full rounded-lg border border-line bg-surface px-3.5 py-2.5 text-sm outline-none placeholder:text-subtle focus:border-foreground focus:ring-2 focus:ring-foreground/10";

@@ -32,7 +32,7 @@ export default function AdminSeedPage() {
     <>
       <PageTitle title="데이터 초기화" description="확인용 가상 데이터를 처음 상태로 다시 채워요." />
       <Card className="max-w-2xl space-y-4">
-        <ul className="list-disc space-y-1 pl-5 text-sm text-slate-600">
+        <ul className="list-disc space-y-1 pl-5 text-sm text-muted">
           <li>부서 6개, 직원 20명, 회의실 5개, 예약(지난 1주 ~ 앞으로 2주), 시설 제보 8건이 다시 만들어져요.</li>
           <li>오늘 예약은 하루 종일 골고루 들어가서 진행 중·예정·완료가 함께 보여요.</li>
           <li>가상 계정 비밀번호는 모두 <b>test1234</b>로 돌아가요. 지금 로그인은 그대로 유지돼요.</li>

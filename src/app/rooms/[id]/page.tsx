@@ -42,7 +42,7 @@ export default function RoomDetailPage() {
       </div>
       <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="flex items-center gap-2 text-2xl font-bold">
+          <h1 className="flex items-center gap-2 text-2xl font-semibold">
             {room.name} {!room.isActive && <Tag tone="amber">점검 중</Tag>}
           </h1>
           <p className="mt-1 text-sm text-muted">
@@ -63,7 +63,7 @@ export default function RoomDetailPage() {
 
       <section className="mb-8">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-lg font-bold">시간표</h2>
+          <h2 className="text-lg font-semibold">시간표</h2>
           <DateNav date={date} onChange={setDate} />
         </div>
         <ErrorBox message={error} />
@@ -82,7 +82,7 @@ function IssueSection({ room, issues, onCreated }: { room: Room; issues: RoomIss
     <section>
       <div className="mb-3 flex items-center justify-between gap-2">
         <div>
-          <h2 className="text-lg font-bold">시설 제보</h2>
+          <h2 className="text-lg font-semibold">시설 제보</h2>
           <p className="text-sm text-muted">소모품이나 고장 난 장비가 있으면 알려 주세요. 총무팀이 확인해요.</p>
         </div>
         {!open && (
@@ -176,7 +176,7 @@ function IssueForm({ room, onDone, onCancel }: { room: Room; onDone: () => void;
                   if (c !== "BROKEN") setEquipment("");
                 }}
                 className={`rounded-full border px-3 py-1.5 text-sm ${
-                  category === c ? "border-brand bg-brand-soft font-semibold text-brand" : "border-line bg-white"
+                  category === c ? "border-foreground bg-foreground font-medium text-white" : "border-line bg-white"
                 }`}
               >
                 {CATEGORY_LABEL[c]}
@@ -195,7 +195,7 @@ function IssueForm({ room, onDone, onCancel }: { room: Room; onDone: () => void;
                   aria-pressed={equipment === eq}
                   onClick={() => setEquipment(eq)}
                   className={`rounded-full border px-3 py-1.5 text-sm ${
-                    equipment === eq ? "border-brand bg-brand-soft font-semibold text-brand" : "border-line bg-white"
+                    equipment === eq ? "border-foreground bg-foreground font-medium text-white" : "border-line bg-white"
                   }`}
                 >
                   {EQUIPMENT_LABEL[eq]}
