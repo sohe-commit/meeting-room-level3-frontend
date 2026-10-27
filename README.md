@@ -4,6 +4,14 @@
 
 > 화면에 나오는 이름, 연락처, 예약은 **모두 가상 데이터**예요.
 
+📄 **기획서:** [기획서.md](기획서.md) — 고객 요청, 화면 목록, 데이터 설계, 규칙(R1~R15), 필수 기능 대조표
+
+| | 주소 |
+|---|---|
+| 프론트엔드 (Vercel) | https://meeting-room-level3-frontend.vercel.app |
+| 백엔드 (Render) | https://meeting-room-level3-backend.onrender.com/health |
+| 백엔드 저장소 | https://github.com/sohe-commit/meeting-room-level3-backend |
+
 ## 내 컴퓨터에서 실행하기
 
 먼저 백엔드를 켜 두세요 (기본 <http://localhost:4100>).
