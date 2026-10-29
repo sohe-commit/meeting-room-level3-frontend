@@ -100,4 +100,6 @@ export interface AiResult {
   reservations?: Reservation[];
   failures?: (AiSlot & { message: string })[];
   suggestions?: { date: string; startTime: string; endTime: string; roomName: string }[];
+  /** 오늘 AI 예약을 쓴 횟수 (하루 한도 R16) */
+  usage?: { used: number; limit: number };
 }

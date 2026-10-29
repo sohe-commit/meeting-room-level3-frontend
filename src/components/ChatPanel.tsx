@@ -185,6 +185,8 @@ export function ChatPanel({ onClose, onNavigate }: { onClose?: () => void; onNav
   const [text, setText] = useState("");
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  // 가장 최근 답에 실린 오늘 사용 횟수 (R16)
+  const usage = messages.findLast((m) => m.result?.usage)?.result?.usage;
 
   // 새 말이 오면 맨 아래로 내린다. (처음 열 때는 바로, 그다음부터는 부드럽게)
   const opened = useRef(false);
@@ -325,7 +327,10 @@ export function ChatPanel({ onClose, onNavigate }: { onClose?: () => void; onNav
             </svg>
           </button>
         </div>
-        <p className="mt-1.5 px-1 text-[11px] text-subtle">AI 예약도 직접 예약과 같은 규칙(10~19시, 최대 3시간 등)을 지켜요.</p>
+        <p className="mt-1.5 px-1 text-[11px] text-subtle">
+          AI 예약도 직접 예약과 같은 규칙(10~19시, 최대 3시간 등)을 지켜요.
+          {usage && ` 오늘 남은 횟수 ${usage.limit - usage.used}/${usage.limit}번`}
+        </p>
       </form>
     </div>
   );
