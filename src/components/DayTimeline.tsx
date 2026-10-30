@@ -72,38 +72,46 @@ export function DayTimeline({
         )}
 
         {rooms.map((room, i) =>
-          room.reservations.map((r) => (
-            <Link
-              key={r.id}
-              href={`/reservations/${r.id}`}
-              className={`z-[5] m-0.5 overflow-hidden rounded-md px-2 py-1 text-xs leading-tight ring-1 ring-inset ${
-                r.isMine
-                  ? "bg-brand text-white ring-brand"
-                  : r.status === "DONE"
-                    ? "bg-surface-2 text-muted ring-line"
-                    : r.meetingType === "TRAINING"
-                      ? "bg-butter text-butter-text ring-[#f3dd8a]"
-                      : "bg-brand-soft text-brand-text ring-[#d3e0fd]"
-              }`}
-              style={{ gridColumn: i + 2, gridRow: `${row(r.startTime)} / ${row(r.endTime)}` }}
-              title={`${r.startTime}~${r.endTime} ${r.departmentName ?? ""} ${r.title}`}
-            >
-              <div className="flex items-center gap-1 font-semibold">
-                {r.isMine && (
-                  <span className="shrink-0 rounded bg-white px-1 py-px text-[10px] font-semibold leading-tight text-brand">
-                    내 예약
+          room.reservations.map((r) => {
+            // 30분짜리 칸은 한 줄 높이뿐이라, 시작 시각과 제목을 한 줄에 이어 붙인다.
+            const short = timeToMinutes(r.endTime) - timeToMinutes(r.startTime) <= 30;
+            return (
+              <Link
+                key={r.id}
+                href={`/reservations/${r.id}`}
+                className={`z-[5] m-0.5 overflow-hidden rounded-md px-2 text-xs leading-tight ring-1 ring-inset ${
+                  short ? "flex items-center gap-1" : "py-1"
+                } ${
+                  r.isMine
+                    ? "bg-brand text-white ring-brand"
+                    : r.status === "DONE"
+                      ? "bg-surface-2 text-muted ring-line"
+                      : r.meetingType === "TRAINING"
+                        ? "bg-butter text-butter-text ring-[#f3dd8a]"
+                        : "bg-brand-soft text-brand-text ring-[#d3e0fd]"
+                }`}
+                style={{ gridColumn: i + 2, gridRow: `${row(r.startTime)} / ${row(r.endTime)}` }}
+                title={`${r.startTime}~${r.endTime} ${r.departmentName ?? ""} ${r.title}`}
+              >
+                <div className="flex shrink-0 items-center gap-1 font-semibold">
+                  {r.isMine && (
+                    <span className="shrink-0 rounded bg-white px-1 py-px text-[10px] font-semibold leading-tight text-brand">
+                      내 예약
+                    </span>
+                  )}
+                  <span className={short ? "shrink-0" : "truncate"}>
+                    {short ? r.startTime : `${r.startTime}~${r.endTime}`}
                   </span>
-                )}
-                <span className="truncate">
-                  {r.startTime}~{r.endTime}
-                </span>
-                {r.meetingType === "TRAINING" && <span className="shrink-0 text-[10px] font-medium opacity-80">· 교육·행사</span>}
-              </div>
-              <div className="truncate">
-                {r.departmentName} · {r.title}
-              </div>
-            </Link>
-          )),
+                  {r.meetingType === "TRAINING" && !short && (
+                    <span className="shrink-0 text-[10px] font-medium opacity-80">· 교육·행사</span>
+                  )}
+                </div>
+                <div className="min-w-0 truncate">
+                  {r.departmentName} · {r.title}
+                </div>
+              </Link>
+            );
+          }),
         )}
       </div>
     </div>
